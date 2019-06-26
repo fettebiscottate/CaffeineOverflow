@@ -1,0 +1,119 @@
+\title{CaffeineOverflow, Analisi dei Rischi}
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+\usepackage[italian]{babel}														
+\usepackage[protrusion=true,expansion=true]{microtype}	
+\usepackage{amsmath,amsfonts,amsthm} 
+\usepackage[pdftex]{graphicx}	
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{booktabs}
+\usepackage{siunitx}
+%%% Custom sectioning
+\usepackage{sectsty}
+\allsectionsfont{\centering \normalfont\scshape}
+\usepackage{float}
+\renewcommand{\arraystretch}{1.1}
+
+%%% Custom headers/footers (fancyhdr package)
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}											% No page header
+\fancyfoot[L]{}											% Empty 
+\fancyfoot[C]{}											% Empty
+\fancyfoot[R]{\thepage}									% Pagenumbering
+\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
+\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}		% Equationnumbering: section.eq#
+\numberwithin{figure}{section}			% Figurenumbering: section.fig#
+\numberwithin{table}{section}				% Tablenumbering: section.tab#
+
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		\normalfont \normalsize \textsc{ALMA MATER STUDIORUM- Universit\'a di Bologna} \\ [25pt]
+		\horrule{0.5pt} \\[0.4cm]
+		\huge CaffeineOverflow, Analisi dei Rischi \\
+		\horrule{2pt} \\[0.5cm]
+}
+\author{ Gruppo "CaffeineOverflow"\\
+		\normalfont 								\normalsize
+        Giacomo Minello, Matteo Tramontano, Davide Menetto\\[-3pt]		\normalsize
+        \today
+}
+\date{}
+\usepackage{xcolor}
+\usepackage{minted}
+\definecolor{LightGray}{gray}{0.9}
+\floatstyle{boxed} 
+\restylefloat{figure}
+%%% Begin document
+\begin{document}
+\maketitle
+\section{Introduzione}
+\paragraph{Il documento} serve a descrive i rischi
+\section{Rischi}
+Il progetto è soggetto a possibili rischi che, se non affrontati nella maniera adeguata, potrebbero alterare la
+buona riuscita della realizzazione del progetto, portando così ad un fallimento.
+I possibili rischi sono:
+\begin{itemize}
+\item Malfunzionamento dei sistemi informatici: è possibile che si presentino dei problemi relativi al
+funzionamento non corretto dei sistemi utilizzati durante la fase di realizzazione del progetto. Una
+possibile soluzione ad esempio, nel caso in cui un computer personale non funzioni, ricorrere alle
+macchine presenti nei laboratori dell’università.
+\item Difficoltà di utilizzo degli strumenti: può capitare che i componenti del gruppo riscontrino
+difficoltà nell’impiego dei mezzi disponibili. E’ necessario in tal caso, colmare queste lacune
+conoscitive mediante lo studio e l’approfondimento dei concetti mancanti.
+\item Difficoltà nello sviluppo delle componenti di progetto: è possibile che a causa di un calcolo
+errato dei tempi o della fattibilità di certe componenti, si abbiano delle difficoltà nello sviluppo di
+alcune parti del progetto. E’ necessario, in tale evenienza, ricercare le soluzioni anche ricorrendo
+all’aiuto degli altri membri del gruppo.
+\item Perdita dei dati: non è da escludere la possibilità di perdita di materiale. Per questa ragione, è bene
+prevenire un simile imprevisto provvedendo a backup regolari dei dati prodotti nel corso della
+realizzazione del progetto.
+\end{itemize}
+Di seguito riportiamo la tabella dei rischi.
+
+	\begin{table}[H]
+    \centering
+    \begin{tabular}{p{5cm} c c p{5cm} } \toprule
+    {$Rischio$}  & {$Probabilità$} & {$Impatto$} & {$Azione$}\\ \midrule
+    Malfunzionamento dei sistemi informatici & Molto Bassa & Basso & Sostituzione strumento \\
+    Difficoltà di utilizzo degli strumenti & Bassa & Basso & Studio personale \\
+    Difficoltà nello sviluppo dei componenti di progetto & Media & Medio & Ricerca di soluzioni adeguate\\
+    Perdita dei dati & Bassa & Molto alto & Utilizzo di sistemi di backup e versionamento \\
+     \bottomrule
+     \end{tabular}
+    \end{table}
+
+\section{Meccanismi di monitoraggio e controllo}
+Durante ogni fase del progetto verranno svolte delle attività di controllo in cui ogni membro del gruppo potrà
+esaminare la correttezza e la qualità del lavoro svolto dagli altri secondo le metodologie Scrum. Si tratterà inoltre di momenti per
+scambiare nuove idee, proposte di miglioramento, spiegare le difficoltà incontrate e proporre soluzioni ai
+problemi. 
+
+
+\\
+\begin{flushright}
+Giacomo Minello
+\end{flushright}
+\\~\\
+\begin{flushright}
+Matteo Tramontano
+\end{flushright}
+\\~\\
+\begin{flushright}
+Davide Menetto
+\end{flushright}
+%%% End document
+\end{document}

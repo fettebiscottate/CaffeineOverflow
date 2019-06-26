@@ -1,0 +1,153 @@
+\title{CaffeineOverflow, Piano di Sviluppo}
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+\usepackage[italian]{babel}														
+\usepackage[protrusion=true,expansion=true]{microtype}	
+\usepackage{amsmath,amsfonts,amsthm} 
+\usepackage[pdftex]{graphicx}	
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{booktabs}
+\usepackage{siunitx}
+%%% Custom sectioning
+\usepackage{sectsty}
+\allsectionsfont{\centering \normalfont\scshape}
+\usepackage{float}
+\renewcommand{\arraystretch}{1.1}
+
+%%% Custom headers/footers (fancyhdr package)
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}											% No page header
+\fancyfoot[L]{}											% Empty 
+\fancyfoot[C]{}											% Empty
+\fancyfoot[R]{\thepage}									% Pagenumbering
+\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
+\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}		% Equationnumbering: section.eq#
+\numberwithin{figure}{section}			% Figurenumbering: section.fig#
+\numberwithin{table}{section}				% Tablenumbering: section.tab#
+
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		\normalfont \normalsize \textsc{ALMA MATER STUDIORUM- Università di Bologna} \\ [25pt]
+		\horrule{0.5pt} \\[0.4cm]
+		\huge CaffeineOverflow, Piano di Sviluppo \\
+		\horrule{2pt} \\[0.5cm]
+}
+\author{ Gruppo "CaffeineOverflow"\\
+		\normalfont 								\normalsize
+        Giacomo Minello, Matteo Tramontano, Davide Menetto\\[-3pt]		\normalsize
+        \today
+}
+\date{}
+\usepackage{xcolor}
+\usepackage{minted}
+\definecolor{LightGray}{gray}{0.9}
+\floatstyle{boxed} 
+\restylefloat{figure}
+%%% Begin document
+\begin{document}
+\maketitle
+\section{Introduzione}
+\subsection{Overview del Progetto}
+Il progetto consiste nella creazione di un di un sito web. Lo scopo di questo sito è permettere agli utenti iscritti di porre domande e fornire risposte agli interrogativi proposti.
+\subsection{Artefatti del Progetto}
+\begin{itemize}
+\item Diario di progetto
+\item Modello dei casi d'uso
+\item Modello di dominio
+\item Glossario
+\item Analisi dei rischi
+\item Descrizione dell'architettura
+\item Manuale utente
+\item Documentazione
+\end{itemize}
+\subsection{Materiali di riferimento}
+In questa sezione elenchiamo i documenti a cui faremo riferimento nel piano di progetto:
+\begin{itemize}
+    \item Slides del corso di Ingegneria del Software
+\end{itemize}
+\subsection{Definizioni e Abbreviazioni}
+Il glossario definisce i termini appertenenti al dominio del progetto CaffeineOverflow. Una copia del glossiario è disponibile tra gli allegati del progetto.
+\section{Organizzazione del Progetto}
+\subsection{Modello del Processo}
+Per la realizzazione della nostra applicazione software riteniamo opportuno utilizzare il modello consigliato ovvero un ibrido strutturato-agile composto da due fasi: inception e construction. Riteniamo inoltre utile aggiungere una fase intermedia di Elaboration al fine di gestire in modo ottimale i rischi del progetto.\newline
+Il modello risultante prevede nella fase di inception uno studio preciso sulla fattibilità della realizzazione del progetto, nella fase di Elaboration una validazione dell'architettura e l'implementazione di un'architettura di base e nella fase di construction l'implementazione delle funzioni del sistema secondo le metodologie Aglie di Scrum E XP. \newline
+Il numero di release previste è pari al numero di iterazioni della fase di Construction. Sono previste tre Milestones, di cui l'ultima coincide con la realizzazione del progetto.
+GLi issue del progetto sono stati tracciati nell'issue traker fornto da Bitbucket ed organizzati per tipologia.
+\subsection{Struttura Organizzativa}
+(Srum master, product owner a rotazione)
+Come indicato nella consegna del progetto due componenti del gruppo giocano il doppio ruolo di membri del team e di scrum master e product owner (i ruoli si ridistribuiscono al termine di ogni sprint). 
+\section{Descrizione dei Processi Gestionali}
+\subsection{Obiettivi e Priorità}
+L’obiettivo consiste nella creazione di una piattaforma funzionante che permetta di inserire domande e risposte. 
+Le nostre priorità sono: rispettare puntualmente i tempi di consegna stabiliti svolgendo in modo efficiente ed efficace i compiti assegnati, mantenere un buon grado di collaborazione tra i componenti del gruppo e garantire un prodotto finale ben strutturato ed affidabile.
+\subsection{Gestione dei rischi}
+Il progetto è soggetto a possibili rischi che, se non affrontati nella maniera adeguata, potrebbero alterare la
+buona riuscita della realizzazione del progetto, portando così ad un fallimento. Un'analisi dei rischi è disponibile tra gli allegati del progetto.
+\section{Pianificazione del lavoro}
+\subsection{WBS (Work breakdown structure)}
+\begin{enumerate}
+ \item Specifiche
+  \begin{itemize}
+      \item Definizione obiettivi
+      \item Definizione vincoli
+      \item Definizione modello del progetto
+      \item Definizione e gestione rischi
+      \item Stesura piano di progetto
+    \end{itemize}
+\item Progettazione concettuale
+    \begin{itemize}
+      \item Modellazione del sistema
+      \item Definizione dei requisiti
+      \item Stesura documento di analisi e specifica
+    \end{itemize}
+
+\item  Progettazione tecnica
+\begin{itemize}
+      \item Stesura documento di progettazione
+    \end{itemize}
+\item Client
+\begin{itemize}
+      \item Creazione User-Interface
+    \end{itemize}
+\item Testing
+\item Rilascio Software 
+\end{enumerate}
+\subsection{Pianificazione}
+\begin{itemize}
+  \item Inizio: 26 Giugno 2019
+  \item Completamento Inception: 
+  \item Completamento Elaboration: 
+  \item Completamento prima Milestone: 
+  \item Completamento seconda Milestone: 
+  \item Completamento terza Milestone: 
+  \item Completamneto Testing finale: 
+  \item Consegna Software: 6 Luglio 2019.
+\end{itemize}
+\\
+\begin{flushright}
+Giacomo Minello
+\end{flushright}
+\\~\\
+\begin{flushright}
+Matteo Tramontano
+\end{flushright}
+\\~\\
+\begin{flushright}
+Davide Menetto
+\end{flushright}
+%%% End document
+\end{document}
