@@ -81,6 +81,39 @@ public class DataBase {
 		}
 	}
 	
+	public static Category readCategory(int id) {
+
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Category> categories = dataBase.getTreeMap(CATEGORIES);
+		return categories.getOrDefault(id, null);
+	}
+	
+	public static boolean updateCategory(String oldNome, String newNome) {
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Category> categories = dataBase.getTreeMap(CATEGORIES);
+		boolean result = false;
+
+		if (newNome.length() == 0) {
+			return result;
+		}
+
+		if (!categories.isEmpty()) {
+			for (Iterator<Entry<Integer, Category>> iterator = categories.entrySet().iterator(); iterator.hasNext();) {
+				final Map.Entry<Integer, Category> c = iterator.next();
+				if (c.getValue().getName().contentEquals(oldNome)) {
+					final Category temp = c.getValue();
+					temp.setName(newNome);
+					categories.remove(temp.getId());
+					categories.put(temp.getId(), temp);
+					result = true;
+				}
+			}
+		}
+		dataBase.commit();
+		dataBase.close();
+		return result;
+	}
+	
 	public static List<Category> readCategories() {
 
 		final DB dataBase = getDB();
