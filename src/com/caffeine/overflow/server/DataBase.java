@@ -30,7 +30,6 @@ public class DataBase {
 	}
 
     public static boolean createQuestion(Question question) {
-
 		final DB dataBase = getDB();
 		final BTreeMap<Integer, Question> questions = dataBase.getTreeMap(QUESTIONS);
 		switch (question.getText().length()) {
@@ -46,6 +45,26 @@ public class DataBase {
 		}
 
 	}
+	
+	private static int setQuestionId() {
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Question> questions = dataBase.getTreeMap(QUESTIONS);
+		return questions.isEmpty() ? 0 : (questions.lastKey() + 1);
+	}
+	
+	public static List<Question> readQuestions() {
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Question> questions = dataBase.getTreeMap(QUESTIONS);
+		final List<Question> domande = new ArrayList<>();
+		if (!questions.isEmpty()) {
+			for (Iterator<Entry<Integer, Question>> iterator = questions.entrySet().iterator(); iterator.hasNext();) {
+				final Map.Entry<Integer, Question> d = iterator.next();
+				domande.add(d.getValue());
+			}
+		}
+		Collections.reverse(domande);
+		return domande;
+	
 	
 	private DataBase() {
 		throw new IllegalStateException("Utility class");
