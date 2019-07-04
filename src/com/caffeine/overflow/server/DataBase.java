@@ -81,6 +81,21 @@ public class DataBase {
 		}
 	}
 	
+	public static List<Category> readCategories() {
+
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Category> categories = dataBase.getTreeMap(CATEGORIES);
+
+		final List<Category> categorie = new ArrayList<>();
+		if (!categories.isEmpty()) {
+			for (Iterator<Entry<Integer, Category>> iterator = categories.entrySet().iterator(); iterator.hasNext();) {
+				final Map.Entry<Integer, Category> c = iterator.next();
+				categorie.add(c.getValue());
+			}
+		}
+		return categorie;
+	}
+	
 	private DataBase() {
 		throw new IllegalStateException("Utility class");
 	}
