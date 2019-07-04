@@ -29,6 +29,58 @@ public class DataBase {
 		return DBMaker.newFileDB(new File(DATABASENAME)).make();
 	}
 
+    public static boolean createCategory(Category category, String padre) {
+
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Category> categories = dataBase.getTreeMap(CATEGORIES);
+
+		if (isValid(category.getName()) || (category.getName().length() == 0)) {
+			return false;
+		} else {
+				final int id = (categories.size() + 1);
+				boolean catPadreCheck = false;
+				Category cPadre = null;
+				category.setIdCategory(id);
+
+				if (padre != null) {
+					if (!categories.isEmpty()) {
+						for (Iterator<Entry<Integer, Category>> iterator = categories.entrySet().iterator(); iterator
+								.hasNext();) {
+							final Map.Entry<Integer, Category> categorie = iterator.next();
+							if (categorie.getValue().getName().equals(padre)) {
+								catPadreCheck = true;
+								cPadre = categorie.getValue();
+							}
+						}
+					}
+				} else {
+					cPadre = new Category("null");
+					catPadreCheck = true;
+				}
+				if (!catPadreCheck) {
+					dataBase.commit();
+					return false;
+				} else {
+					category.setFather(cPadre);
+					categories.put(id, category);
+					if (cPadre != null) {
+						for (Iterator<Entry<Integer, Category>> iterator = categories.entrySet().iterator(); iterator
+								.hasNext();) {
+							final Map.Entry<Integer, Category> categorie = iterator.next();
+							if (categorie.getValue().getName().equals(padre)) {
+								final Category p = categorie.getValue();
+								p.setSubCategories(category);
+								categories.remove(p.getId());
+								categories.put(p.getId(), p);
+							}
+						}
+					}
+				}
+				dataBase.commit();
+				return true;
+		}
+	}
+	
 	private DataBase() {
 		throw new IllegalStateException("Utility class");
 	}
