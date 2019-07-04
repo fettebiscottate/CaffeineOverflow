@@ -25,21 +25,8 @@ public class DataBase {
 
 	public static final String DATABASENAME = "db";
 
-	private static DB getAnswersDb() {
-		return DBMaker.newFileDB(new File(ANSWERS)).make();
-	}
-
-	private static DB getCategoriesDb() {
-		return DBMaker.newFileDB(new File(CATEGORIES)).make();
-	}
-
-	private static DB getQuestionsDb() {
-		return DBMaker.newFileDB(new File(QUESTIONS)).make();
-	}
-
-	private static DB getUsersDb() {
-		return DBMaker.newFileDB(new File(USERS)).make();
-
+	private static DB getDB() {
+		return DBMaker.newFileDB(new File(DATABASENAME)).make();
 	}
 
 	private DataBase() {
