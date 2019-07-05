@@ -64,7 +64,30 @@ public class DataBase {
 		}
 		Collections.reverse(domande);
 		return domande;
+	}
 	
+	public static boolean removeQuestion(int id) {
+
+		if (!isValid(id)) {
+			return false;
+		} else {
+			final DB dataBase = getDB();
+			final BTreeMap<Integer, Question> questions = dataBase.getTreeMap(QUESTIONS);
+			final BTreeMap<Integer, Answer> answers = dataBase.getTreeMap(ANSWERS);
+
+			for (Iterator<Entry<Integer, Answer>> iterator = answers.entrySet().iterator(); iterator.hasNext();) {
+				final Entry<Integer, Answer> entry = iterator.next();
+				if (entry.getValue().getIdQuestion() == id) {
+					answers.remove(entry.getKey());
+				}
+			}
+
+			questions.remove(id);
+			dataBase.commit();
+			dataBase.close();
+			return true;
+		}
+	}
 	
 	private DataBase() {
 		throw new IllegalStateException("Utility class");
