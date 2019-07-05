@@ -43,6 +43,44 @@ public class DataBase {
 			return true;
 		}
 	}
+	
+	public static List<Answer> readAnswer(int idQuestion) {
+
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Answer> questions = dataBase.getTreeMap(ANSWERS);
+
+		final List<Answer> questionsList = new ArrayList<>();
+
+		for (Iterator<Entry<Integer, Answer>> iterator = questions.entrySet().iterator(); iterator.hasNext();) {
+			final Map.Entry<Integer, Answer> answer = iterator.next();
+			if (answer.getValue().getIdQuestion() == idQuestion) {
+				questionsList.add(answer.getValue());
+			}
+		}
+		dataBase.commit();
+		dataBase.close();
+		Collections.reverse(questionsList);
+		return questionsList;
+	}
+
+	public static List<Answer> readAnswers() {
+
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Answer> questions = dataBase.getTreeMap(ANSWERS);
+
+		final List<Answer> questionsList = new ArrayList<>();
+
+		for (Iterator<Entry<Integer, Answer>> iterator = questions.entrySet().iterator(); iterator.hasNext();) {
+			final Map.Entry<Integer, Answer> answer = iterator.next();
+			questionsList.add(answer.getValue());
+		}
+		dataBase.commit();
+		dataBase.close();
+
+		Collections.reverse(questionsList);
+
+		return questionsList;
+	}
 
 
 	private DataBase() {
