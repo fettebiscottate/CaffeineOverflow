@@ -11,9 +11,8 @@ import java.util.List;
  * @author Davide Menetto
  * @version 1.0
  */
+@SuppressWarnings("serial")
 public class Judge extends User implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates an empty Judge object.
