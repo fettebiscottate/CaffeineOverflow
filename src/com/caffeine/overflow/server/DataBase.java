@@ -22,7 +22,7 @@ import com.caffeine.overflow.model.Social;
 import com.caffeine.overflow.model.User;
 
 /**
- *
+ * 
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -41,7 +41,25 @@ public class DataBase {
 
 	public static final String DATABASENAME = "db";
 
-
+	public static String appointJudge(String email) {
+		final List<String> usersList = readUsers();
+		for (Iterator<String> iterator = usersList.iterator(); iterator.hasNext();) {
+			final String currentUser = iterator.next();
+			if (email.equalsIgnoreCase(currentUser)) {
+				final DB dataBase = getDB();
+				final BTreeMap<String, User> users = dataBase.getTreeMap(USERS);
+				final User user = users.get(email);
+				users.put(email,
+						new Judge(user.getUserName(), user.getPassword(), user.getEmail(), user.getName(),
+								user.getSurname(), user.getSex(), user.getBirthPlace(), user.getBirthDate(),
+								user.getLivingPlace(), user.getSocial()));
+				dataBase.commit();
+				dataBase.close();
+				return "Success";
+			}
+		}
+		return "Error";
+	}
 
 	public static void createAdmin() {
 		final DB dataBase = getDB();
@@ -142,7 +160,19 @@ public class DataBase {
 
 	}
 
+	public static boolean createRating(Answer answer, String email, String rating) {
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Answer> questions = dataBase.getTreeMap(ANSWERS);
 
+		if (!answer.getRating().equals("") || answer.getUserName().equals(email)) {
+			return false;
+		} else {
+			questions.put(answer.getIdAnswer(), new Answer(answer.getIdAnswer(), answer.getIdQuestion(),
+					answer.getText(), answer.getUserName(), answer.getLinkList(), email, rating));
+			dataBase.commit();
+			return true;
+		}
+	}
 
 	public static String createUser(List<String> userData, List<String> social) {
 
@@ -422,6 +452,41 @@ public class DataBase {
 		final DB dataBase = getDB();
 		final BTreeMap<Integer, Question> questions = dataBase.getTreeMap(QUESTIONS);
 		return questions.isEmpty() ? 0 : (questions.lastKey() + 1);
+	}
+
+	public static List<Answer> sortAnswers(int idQuestion) {
+
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Answer> questions = dataBase.getTreeMap(ANSWERS);
+
+		final List<Answer> questionsList = new ArrayList<>();
+		final List<Answer> votate = new ArrayList<>();
+		final List<Answer> nonVotate = new ArrayList<>();
+
+		for (Iterator<Entry<Integer, Answer>> iterator = questions.entrySet().iterator(); iterator.hasNext();) {
+			final Entry<Integer, Answer> answer = iterator.next();
+			if (answer.getValue().getIdQuestion() == idQuestion) {
+				switch (answer.getValue().getRating()) {
+				case "":
+					votate.add(answer.getValue());
+					break;
+				default:
+					nonVotate.add(answer.getValue());
+					break;
+				}
+			}
+		}
+
+		Collections.reverse(nonVotate);
+		Collections.reverse(votate);
+
+		questionsList.addAll(votate);
+		questionsList.addAll(nonVotate);
+
+		dataBase.commit();
+		dataBase.close();
+
+		return questionsList;
 	}
 
 	public static boolean updateCategory(String oldNome, String newNome) {
