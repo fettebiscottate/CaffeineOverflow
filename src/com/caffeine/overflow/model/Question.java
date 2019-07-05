@@ -15,9 +15,8 @@ import com.google.gwt.i18n.shared.DateTimeFormat;
  * @author Davide Menetto
  * @version 1.0
  */
+@SuppressWarnings("serial")
 public class Question implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 
 	private int idQuestion;
 	private String text;
