@@ -81,6 +81,16 @@ public class DataBase {
 
 		return questionsList;
 	}
+	
+	public static boolean deleteAnswer(int id) {
+
+		final DB dataBase = getDB();
+		final BTreeMap<Integer, Answer> questions = dataBase.getTreeMap(ANSWERS);
+		questions.remove(id);
+		dataBase.commit();
+		dataBase.close();
+		return true;
+	}
 
 
 	private DataBase() {
