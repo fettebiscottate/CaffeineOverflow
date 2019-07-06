@@ -21,7 +21,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
- * 
+ * * This class consists of a constructor and some methods to allow the user to
+ * see the questions and filter them by category
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -36,18 +37,29 @@ public class ShowQuestions {
 	private List<Category> subCategoriesFilterList = new ArrayList<>();
 	private String path;
 
+	/**
+	 * Constructor for class ShowQuestions
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public ShowQuestions(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This method show the sub categories of a selected category
+	 * 
+	 * @param categoriesList
+	 * @param father
+	 */
 	private void getSubCategories(List<Category> categoriesList, Category father) {
-
 		if (father != null) {
 			switch (father.getName()) {
 			case "Base":
 				return;
 			}
-
 			for (Iterator<Category> iterator = categoriesList.iterator(); iterator.hasNext();) {
 				final Category category = iterator.next();
 				if (category.getFather().getName().equals(father.getName())) {
@@ -64,14 +76,31 @@ public class ShowQuestions {
 		}
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @param filter, the category to show
+	 * @param path,   the path of the categories tree
+	 * @see Category
+	 * @see Question
+	 * @see CellTable
+	 * @see KeyboardSelectionPolicy
+	 * @see TextColumn
+	 * @see Button
+	 * @see HTML
+	 * @see HorizontalPanel
+	 * @see Label
+	 * @see ListBox
+	 * @see PopupPanel
+	 * @see VerticalPanel
+	 * @see SingleSelectionModel
+	 * @since 1.0
+	 */
 	public void onModuleLoad(final String filter, final String path) {
-
 		this.filter = filter;
 		this.path = path;
 		final Label labelFilter;
-
 		labelFilter = this.filter == null ? new Label("CATEGORIA:") : new Label("CATEGORIA: " + this.path);
-
 		final HorizontalPanel horizontalPanel1 = new HorizontalPanel();
 		horizontalPanel1.add(labelFilter);
 		this.verticalPanel.add(horizontalPanel1);
@@ -95,12 +124,11 @@ public class ShowQuestions {
 					category = new Category(filter);
 				}
 				ShowQuestions.this.getSubCategories(response, category);
-
-				for (Iterator<Category> iterator = ShowQuestions.this.subCategoriesFilterList.iterator(); iterator.hasNext();) {
+				for (Iterator<Category> iterator = ShowQuestions.this.subCategoriesFilterList.iterator(); iterator
+						.hasNext();) {
 					final Category category1 = iterator.next();
 					selectedCategory.addItem(category1.getName());
 				}
-
 				caffeineOverflow.getQuestions(new AsyncCallback<List<Question>>() {
 
 					@Override
@@ -120,7 +148,8 @@ public class ShowQuestions {
 							} else if (!ShowQuestions.this.subCategoriesFilterList.isEmpty()) {
 								horizontalPanel2.add(selectedCategory);
 								horizontalPanel2.add(filterButton);
-								for (Iterator<Category> iterator = ShowQuestions.this.subCategoriesFilterList.iterator(); iterator.hasNext();) {
+								for (Iterator<Category> iterator = ShowQuestions.this.subCategoriesFilterList
+										.iterator(); iterator.hasNext();) {
 									final Category subCategory = iterator.next();
 									if (question.getCategoryName().equals(subCategory.getName())) {
 										questionsList.add(question);
@@ -128,7 +157,6 @@ public class ShowQuestions {
 								}
 							}
 						}
-
 						final CellTable<Question> questionsTable = new CellTable<>(20);
 						questionsTable.addColumn(new TextColumn<Question>() {
 							@Override
@@ -169,12 +197,9 @@ public class ShowQuestions {
 						questionsTable.setRowData(0, questionsList);
 						ShowQuestions.this.verticalPanel.add(questionsTable);
 					}
-
 				});
 			}
-
 		});
-
 		filterButton.addClickHandler(event -> {
 			this.selected = selectedCategory.getSelectedItemText();
 			this.verticalPanel.clear();
@@ -182,14 +207,12 @@ public class ShowQuestions {
 			final String categoryPath = path + " -> " + this.selected;
 			showQuestions.onModuleLoad(this.selected, categoryPath);
 		});
-
 		final Button resetButton = new Button("Reset");
 		resetButton.addClickHandler(event -> {
 			this.verticalPanel.clear();
 			final ShowQuestions showQuestions = new ShowQuestions(this.verticalPanel);
 			showQuestions.onModuleLoad(null, "");
 		});
-
 		this.verticalPanel.add(horizontalPanel2);
 		this.verticalPanel.add(resetButton);
 	}

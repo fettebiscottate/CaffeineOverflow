@@ -9,7 +9,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * 
+ * This class consists of a constructor and a method to allow a judge to see its
+ * informations
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -20,20 +21,36 @@ public class JudgeProfile {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * Constructor for class JudgeProfile
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public JudgeProfile(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see HTML
+	 * @see HorizontalPanel
+	 * @see PopupPanel
+	 * @see RootPanel
+	 * @see VerticalPanel
+	 * @see CaffeineOverflowServiceAsync
+	 * @see StringBuilder
+	 * @since 1.0
+	 */
 	public void onModuleLoad() {
-
 		final Menu menu = new Menu(this.verticalPanel, 1);
 		menu.onModuleLoad();
 		this.verticalPanel.add(new HTML("UTENTE"));
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
-
 		try {
 			final CaffeineOverflowServiceAsync caffeineOverflow = GWT.create(CaffeineOverflowService.class);
-
 			caffeineOverflow.getUser(CurrentUser.email, new AsyncCallback<String>() {
 
 				@Override

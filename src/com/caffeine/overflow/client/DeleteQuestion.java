@@ -14,7 +14,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
- * 
+ * This class consists of a constructor and a method to allow the user to delete
+ * a question
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -25,15 +26,33 @@ public class DeleteQuestion {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * Constructor for class DeleteQuestion
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public DeleteQuestion(final VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see CaffeineOverflowServiceAsync
+	 * @see Question
+	 * @see CellTable
+	 * @see KeyboardSelectionPolicy
+	 * @see TextColumn
+	 * @see HTML
+	 * @see PopupPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public void onModuleLoad() {
-
 		this.verticalPanel.add(new HTML("<h1>Cancella</h1>"));
 		this.verticalPanel.add(new HTML("<br/>"));
-
 		final CaffeineOverflowServiceAsync caffeineOverflow = GWT.create(CaffeineOverflowService.class);
 		caffeineOverflow.getQuestions(new AsyncCallback<List<Question>>() {
 
@@ -74,7 +93,6 @@ public class DeleteQuestion {
 				questionsTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 				final SingleSelectionModel<Question> questionSelectionModel = new SingleSelectionModel<>();
 				questionsTable.setSelectionModel(questionSelectionModel);
-
 				questionSelectionModel.addSelectionChangeHandler(event -> {
 					final Question selected = questionSelectionModel.getSelectedObject();
 					if (selected != null) {
@@ -96,7 +114,8 @@ public class DeleteQuestion {
 										popup.setWidget(new HTML("Success"));
 										popup.center();
 										DeleteQuestion.this.verticalPanel.clear();
-										final DeleteQuestion deleteQuestion = new DeleteQuestion(DeleteQuestion.this.verticalPanel);
+										final DeleteQuestion deleteQuestion = new DeleteQuestion(
+												DeleteQuestion.this.verticalPanel);
 										deleteQuestion.onModuleLoad();
 									} else {
 										final PopupPanel popup = new PopupPanel(true);
@@ -112,11 +131,9 @@ public class DeleteQuestion {
 						}
 					}
 				});
-
 				questionsTable.setRowCount(response.size(), true);
 				questionsTable.setRowData(0, response);
 				DeleteQuestion.this.verticalPanel.add(questionsTable);
-
 			}
 		});
 	}

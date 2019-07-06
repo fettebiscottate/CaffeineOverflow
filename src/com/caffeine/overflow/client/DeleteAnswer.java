@@ -14,7 +14,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
- * 
+ * This class consists of a constructor and a method to allow the user to delete
+ * an answer
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -25,16 +26,36 @@ public class DeleteAnswer {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * Constructor for class DeleteAnswer
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public DeleteAnswer(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see VerticalPanel
+	 * @see HTML
+	 * @see CaffeineOverflowServiceAsync
+	 * @see PopupPanel
+	 * @see CellTable
+	 * @see TextColumn
+	 * @see Answer
+	 * @see List
+	 * @see KeyboardSelectionPolicy
+	 * @since 1.0
+	 */
 	public void onModuleLoad() {
 
 		this.verticalPanel.add(new HTML("<h1>Cancella</h1>"));
 		this.verticalPanel.add(new HTML("<br>"));
 		final CaffeineOverflowServiceAsync caffeineOverflow = GWT.create(CaffeineOverflowService.class);
-
 		caffeineOverflow.getAllAnswers(new AsyncCallback<List<Answer>>() {
 
 			@Override
@@ -80,7 +101,6 @@ public class DeleteAnswer {
 						final int id = selected.getIdAnswer();
 						try {
 							caffeineOverflow.removeAnswer(id, new AsyncCallback<Boolean>() {
-
 								@Override
 								public void onFailure(Throwable caught) {
 									PopupPanel popup = new PopupPanel(true);
@@ -112,11 +132,9 @@ public class DeleteAnswer {
 						}
 					}
 				});
-
 				answersTable.setRowCount(response.size(), true);
 				answersTable.setRowData(0, response);
 				DeleteAnswer.this.verticalPanel.add(answersTable);
-
 			}
 		});
 	}
