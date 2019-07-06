@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * 
+ * This class consists of a constructor and a method to manage the menu commands
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -17,10 +17,23 @@ public class Comando {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * Constructor for class Comando
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public Comando(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This method manage the different menu functions.
+	 * 
+	 * @param tipo
+	 * @return
+	 */
 	public Command comando(String tipo) {
 		Command cmd = null;
 
@@ -87,7 +100,6 @@ public class Comando {
 		} else if (tipo.equalsIgnoreCase("10")) {
 			cmd = () -> {
 				Comando.this.verticalPanel.clear();
-
 				if (CurrentUser.accountType == 0) {
 					final CaffeineOverflow newService0 = new CaffeineOverflow();
 					newService0.onModuleLoad();

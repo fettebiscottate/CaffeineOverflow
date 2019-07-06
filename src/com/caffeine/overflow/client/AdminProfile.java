@@ -8,7 +8,8 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * 
+ * This class consists of a constructor and a method to allow the admin to see
+ * its informations
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -19,10 +20,28 @@ public class AdminProfile implements EntryPoint {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * Constructor for class AdminProfile
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public AdminProfile(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see CaffeineOverflowServiceAsync
+	 * @see Menu
+	 * @see VerticalPanel
+	 * @see CurrentUser
+	 * @see PopupPanel
+	 * @see StringBuilder
+	 * @since 1.0
+	 */
 	@Override
 	public void onModuleLoad() {
 
@@ -39,7 +58,7 @@ public class AdminProfile implements EntryPoint {
 					popup.setWidget(new HTML("<font color='red'>Error</font>"));
 					popup.center();
 				}
-				
+
 				@Override
 				public void onSuccess(String userInformation) {
 					final String[] userData = userInformation.split("\n");

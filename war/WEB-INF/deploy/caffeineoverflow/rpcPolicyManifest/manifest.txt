@@ -1,0 +1,3 @@
+# Module caffeineoverflow
+# RPC service class, partial path of RPC policy file
+com.caffeine.overflow.client.CaffeineOverflowService, 959BFEC543C1BE6CAC1876E44FAF9496.gwt.rpc

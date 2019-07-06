@@ -10,30 +10,46 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * 
+ * This class consists of a constructor and a method to allow a user to see its
+ * informations
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
  * @author Davide Menetto
  * @version 1.0
+ * @see EntryPoint
  */
 public class UserProfile implements EntryPoint {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * Constructor for class UserProfile
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public UserProfile(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
-	
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see HTML
+	 * @see HorizontalPanel
+	 * @see PopupPanel
+	 * @see RootPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	@Override
 	public void onModuleLoad() {
 		this.verticalPanel.add(new HTML("UTENTE"));
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
-
 		try {
 			final CaffeineOverflowServiceAsync caffeineOverflow = GWT.create(CaffeineOverflowService.class);
-
 			caffeineOverflow.getUser(CurrentUser.email, new AsyncCallback<String>() {
 
 				@Override
@@ -74,10 +90,8 @@ public class UserProfile implements EntryPoint {
 			popup.setWidget(new HTML(e.toString()));
 			popup.center();
 		}
-
 		final Menu menu = new Menu(this.verticalPanel, CurrentUser.accountType);
 		menu.onModuleLoad();
-
 		RootPanel.get().add(this.verticalPanel);
 	}
 }

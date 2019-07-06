@@ -19,7 +19,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 
 /**
- * 
+ * This class consists of a constructor and a method to allow the user to
+ * register into the site
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -30,10 +31,36 @@ public class RegisterUser {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * Constructor for class RegisterUser
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public RegisterUser(final VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see Date
+	 * @see List
+	 * @see DateTimeFormat
+	 * @see Button
+	 * @see Grid
+	 * @see HTML
+	 * @see HorizontalPanel
+	 * @see Label
+	 * @see ListBox
+	 * @see PopupPanel
+	 * @see TextBox
+	 * @see VerticalPanel
+	 * @see DateBox
+	 * @see CaffeineOverflowServiceAsync
+	 * @since 1.0
+	 */
 	public void onModuleLoad() {
 		final Menu menu = new Menu(this.verticalPanel, 0);
 		menu.onModuleLoad();
@@ -60,7 +87,7 @@ public class RegisterUser {
 		final TextBox siteSocial3 = new TextBox();
 		final TextBox userNameSocial3 = new TextBox();
 		final Grid registrationGridPanel = new Grid(17, 2);
-		registrationGridPanel.setWidget(0, 0, new Label("Username*: ") );
+		registrationGridPanel.setWidget(0, 0, new Label("Username*: "));
 		registrationGridPanel.setWidget(0, 1, userNameTextBox);
 		registrationGridPanel.setWidget(1, 0, new Label("Password*: "));
 		registrationGridPanel.setWidget(1, 1, passwordTextBox);

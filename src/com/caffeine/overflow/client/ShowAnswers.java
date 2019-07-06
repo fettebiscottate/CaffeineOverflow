@@ -20,7 +20,8 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
- * 
+ * This class consists of a constructor and a method to allow the user to see
+ * all the answers
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -31,10 +32,34 @@ public class ShowAnswers {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * Constructor for class ShowAnswer
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public ShowAnswers(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @param currentSelection, the selected question
+	 * @see Question
+	 * @see CellTable
+	 * @see ListHandler
+	 * @see KeyboardSelectionPolicy
+	 * @see TextColumn
+	 * @see Grid
+	 * @see HTML
+	 * @see Label
+	 * @see PopupPanel
+	 * @see VerticalPanel
+	 * @see ListDataProvider
+	 * @since 1.0
+	 */
 	public void onModuleLoad(Question currentSelection) {
 		this.verticalPanel.add(new HTML("<br>"));
 		this.verticalPanel.add(new HTML("<br>"));
@@ -52,7 +77,7 @@ public class ShowAnswers {
 		answerGridPanel.setWidget(6, 0, new Label("Link3: "));
 		answerGridPanel.setWidget(6, 1, new Label(currentSelection.getLinkList().get(2)));
 		answerGridPanel.setWidget(7, 0, new Label("Link4: "));
-		answerGridPanel.setWidget(7, 1,  new Label(currentSelection.getLinkList().get(3)));
+		answerGridPanel.setWidget(7, 1, new Label(currentSelection.getLinkList().get(3)));
 		this.verticalPanel.add(answerGridPanel);
 		final CaffeineOverflowServiceAsync caffeineOverflow = GWT.create(CaffeineOverflowService.class);
 		final int id = currentSelection.getIdQuestion();
@@ -98,7 +123,6 @@ public class ShowAnswers {
 						return answer.getJudgeEmail();
 					}
 				}, "Giudice");
-
 				final TextColumn<Answer> ratingTextColumn = new TextColumn<Answer>() {
 					@Override
 					public String getValue(Answer answer) {
@@ -107,7 +131,6 @@ public class ShowAnswers {
 				};
 				questionsTable.addColumn(ratingTextColumn, "Voto");
 				ratingTextColumn.setSortable(true);
-				
 				questionsTable.addColumn(new TextColumn<Answer>() {
 					@Override
 					public String getValue(Answer answer) {
@@ -148,7 +171,8 @@ public class ShowAnswers {
 							return 1;
 						}
 					} else {
-						return (option2 != null && option1 != null) ? option1.getRating().compareTo(option2.getRating()) : 1;
+						return (option2 != null && option1 != null) ? option1.getRating().compareTo(option2.getRating())
+								: 1;
 					}
 				});
 				questionsTable.addColumnSortHandler(columnSortHandler);
@@ -157,7 +181,6 @@ public class ShowAnswers {
 				final SingleSelectionModel<Answer> selectionModel = new SingleSelectionModel<>();
 				questionsTable.setSelectionModel(selectionModel);
 				selectionModel.addSelectionChangeHandler(event -> {
-					
 					if (CurrentUser.accountType == 1) {
 						final Answer currentSelection1 = selectionModel.getSelectedObject();
 						if (currentSelection1 != null) {
@@ -170,8 +193,6 @@ public class ShowAnswers {
 				questionsTable.setRowData(0, response);
 				ShowAnswers.this.verticalPanel.add(questionsTable);
 			}
-
 		});
 	}
-
 }

@@ -22,7 +22,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
- * 
+ * This class consists of a constructor and a method to allow the user to create
+ * an answer to a specific question
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -36,10 +37,38 @@ public class AddAnswer {
 	private Button answerButton;
 	private TextArea answerTextArea;
 
+	/**
+	 * Constructor for class AddAnswer
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public AddAnswer(final VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see VerticalPanel
+	 * @see Answer
+	 * @see CaffeineOverflowServiceAsync
+	 * @see PopupPanel
+	 * @see CellTable
+	 * @see KeyboardSelectionPolicy
+	 * @see Question
+	 * @see TextArea
+	 * @see TextColumn
+	 * @see HorizontalPanel
+	 * @see List
+	 * @see TextBox
+	 * @see Label
+	 * @see Grid
+	 * @see CurrentUser
+	 * @see PopupPanel
+	 * @since 1.0
+	 */
 	public void onModuleLoad() {
 		this.verticalPanel1 = new VerticalPanel();
 		this.verticalPanel.add(new HTML("Risposta"));
@@ -87,7 +116,7 @@ public class AddAnswer {
 				questionSelectionModel.addSelectionChangeHandler(event -> {
 					AddAnswer.this.verticalPanel1.clear();
 					final Question selected = questionSelectionModel.getSelectedObject();
-					 if (selected != null) {
+					if (selected != null) {
 						final int idQuestion = selected.getIdQuestion();
 						final int id = 1;
 						AddAnswer.this.answerTextArea = new TextArea();
@@ -117,9 +146,10 @@ public class AddAnswer {
 							linkList.add(linkTextBox2.getValue());
 							linkList.add(linkTextBox3.getValue());
 							linkList.add(linkTextBox4.getValue());
-							final Answer insertedAnswer = new Answer(id, idQuestion, AddAnswer.this.answerTextArea.getValue(),
-									CurrentUser.email, linkList);
-							final CaffeineOverflowServiceAsync caffeineOverflow1 = GWT.create(CaffeineOverflowService.class);
+							final Answer insertedAnswer = new Answer(id, idQuestion,
+									AddAnswer.this.answerTextArea.getValue(), CurrentUser.email, linkList);
+							final CaffeineOverflowServiceAsync caffeineOverflow1 = GWT
+									.create(CaffeineOverflowService.class);
 							caffeineOverflow1.addAnswer(insertedAnswer, new AsyncCallback<Boolean>() {
 
 								@Override

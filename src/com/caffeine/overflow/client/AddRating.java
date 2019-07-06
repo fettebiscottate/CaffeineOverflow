@@ -12,8 +12,11 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
+ * This class consists of a constructor and a method to allow the user to add a
+ * rating to a specific answer
  * 
- *
+ * {@value #RADIO} name of the radiobuttons' group
+ * 
  * @author Giacomo Minello
  * @author Matteo Tramontano
  * @author Davide Menetto
@@ -22,16 +25,36 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class AddRating {
 
 	private VerticalPanel verticalPanel = null;
+
 	private static final String RADIO = "radioButton";
-	
+
 	/**
+	 * Constructor for class AddRating
 	 * 
-	 * @param verticalPanel VerticalPanel
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
 	 */
 	public AddRating(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @param selected, the selected answer to rate
+	 * @see CaffeineOverflowServiceAsync
+	 * @see Menu
+	 * @see VerticalPanel
+	 * @see RadioButton
+	 * @see Grid
+	 * @see Button
+	 * @see CurrentUser
+	 * @see PopupPanel
+	 * @see ShowQuestions
+	 * @see Label
+	 * @since 1.0
+	 */
 	public void onModuleLoad(final Answer selected) {
 		final Menu menu = new Menu(this.verticalPanel, 1);
 		menu.onModuleLoad();
@@ -63,12 +86,12 @@ public class AddRating {
 		this.verticalPanel.add(verticalPanel1);
 		voteButton.addClickHandler(event -> {
 			String rating = "";
-			if (radioButton0.getValue()) { 
+			if (radioButton0.getValue()) {
 				rating = radioButton0.getText();
-			} 
+			}
 			if (radioButton1.getValue()) {
 				rating = radioButton1.getText();
-			} 
+			}
 			if (radioButton2.getValue()) {
 				rating = radioButton2.getText();
 			}
@@ -77,7 +100,7 @@ public class AddRating {
 			}
 			if (radioButton4.getValue()) {
 				rating = radioButton4.getText();
-			} 
+			}
 			if (radioButton5.getValue()) {
 				rating = radioButton5.getText();
 			}

@@ -16,22 +16,37 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
- * 
+ * This class represent the entry point of the GWT application, it shows a menu
+ * and the latest questions
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
  * @author Davide Menetto
  * @version 1.0
+ * @see EntryPoint
  */
 public class CaffeineOverflow implements EntryPoint {
 
 	private VerticalPanel verticalPanel = null;
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see VerticalPanel
+	 * @see CaffeineOverflowServiceAsync
+	 * @see HTML
+	 * @see PopupPanel
+	 * @see CellTable
+	 * @see TextColumn
+	 * @see Question
+	 * @see KeyboardSelectionPolicy
+	 * @see ShowAnswers
+	 * @see Menu
+	 * @since 1.0
+	 */
 	@Override
 	public void onModuleLoad() {
-
 		RootPanel.get().clear();
-
 		this.verticalPanel = new VerticalPanel();
 		this.verticalPanel.add(new HTML("<h1>Domande</h1>"));
 		this.verticalPanel.add(new HTML("</br>"));
@@ -75,26 +90,22 @@ public class CaffeineOverflow implements EntryPoint {
 				questionsTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 				final SingleSelectionModel<Question> questionSelectionModel = new SingleSelectionModel<>();
 				questionsTable.setSelectionModel(questionSelectionModel);
-
-				questionSelectionModel.addSelectionChangeHandler(event -> questionSelectionModel.addSelectionChangeHandler(event1 -> {
-					final Question selected = questionSelectionModel.getSelectedObject();
-					if (selected != null) {
-						CaffeineOverflow.this.verticalPanel.clear();
-						final ShowAnswers showAnswers = new ShowAnswers(CaffeineOverflow.this.verticalPanel);
-						showAnswers.onModuleLoad(selected);
-					}
-				}));
-
+				questionSelectionModel
+						.addSelectionChangeHandler(event -> questionSelectionModel.addSelectionChangeHandler(event1 -> {
+							final Question selected = questionSelectionModel.getSelectedObject();
+							if (selected != null) {
+								CaffeineOverflow.this.verticalPanel.clear();
+								final ShowAnswers showAnswers = new ShowAnswers(CaffeineOverflow.this.verticalPanel);
+								showAnswers.onModuleLoad(selected);
+							}
+						}));
 				questionsTable.setRowCount(response.size(), true);
 				questionsTable.setRowData(0, response);
 				CaffeineOverflow.this.verticalPanel.add(questionsTable);
-
 			}
 		});
 		final Menu menu = new Menu(this.verticalPanel, 0);
 		menu.onModuleLoad();
-
 		RootPanel.get().add(this.verticalPanel);
 	}
-
 }

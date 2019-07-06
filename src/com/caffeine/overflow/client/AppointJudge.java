@@ -12,7 +12,8 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * 
+ * This class consists of a constructor and some methods to allow the admin to
+ * appoint a judge
  *
  * @author Giacomo Minello
  * @author Matteo Tramontano
@@ -24,10 +25,20 @@ public class AppointJudge {
 	private VerticalPanel verticalPanel = null;
 	public ListBox usersListBox = new ListBox();
 
+	/**
+	 * Constructor for class AppointJudge
+	 * 
+	 * @param verticalPanel
+	 * @see VerticalPanel
+	 * @since 1.0
+	 */
 	public AppointJudge(VerticalPanel verticalPanel) {
 		this.verticalPanel = verticalPanel;
 	}
 
+	/**
+	 * This method show the list of available users to appoint.
+	 */
 	public void getUsers() {
 		try {
 			final CaffeineOverflowServiceAsync caffeineOverflow = GWT.create(CaffeineOverflowService.class);
@@ -54,10 +65,25 @@ public class AppointJudge {
 		}
 	}
 
+	/**
+	 * This is the initialization method of the module.
+	 */
 	public void init() {
 		this.getUsers();
 	}
 
+	/**
+	 * This is the entry point method.
+	 * 
+	 * @see Menu
+	 * @see VerticalPanel
+	 * @see ListBox
+	 * @see Grid
+	 * @see Button
+	 * @see CaffeineOverflowServiceAsync
+	 * @see PopupPanel
+	 * @since 1.0
+	 */
 	public void onModuleLoad() {
 
 		this.init();
@@ -69,7 +95,8 @@ public class AppointJudge {
 		this.verticalPanel.add(usersSelectionGridPanel);
 		final Button appointButton = new Button("Nomina");
 		appointButton.addClickHandler(event -> {
-			final String email = (this.usersListBox.getItemText(this.usersListBox.getSelectedIndex()).split(":"))[0].trim();
+			final String email = (this.usersListBox.getItemText(this.usersListBox.getSelectedIndex()).split(":"))[0]
+					.trim();
 			try {
 				final CaffeineOverflowServiceAsync caffeineOverflow = GWT.create(CaffeineOverflowService.class);
 				caffeineOverflow.appoint(email, new AsyncCallback<String>() {

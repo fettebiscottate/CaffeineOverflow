@@ -1,0 +1,2 @@
+serviceClass: com.caffeine.overflow.client.CaffeineOverflowService
+path: 959BFEC543C1BE6CAC1876E44FAF9496.gwt.rpc
