@@ -3,7 +3,6 @@ package com.caffeine.overflow.client;
 import java.util.List;
 
 import com.caffeine.overflow.model.Question;
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
@@ -11,7 +10,6 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
@@ -23,24 +21,25 @@ import com.google.gwt.view.client.SingleSelectionModel;
  * @author Davide Menetto
  * @version 1.0
  */
-public class CaffeineOverflow implements EntryPoint {
+public class DeleteQuestion {
 
 	private VerticalPanel verticalPanel = null;
 
-	@Override
+	public DeleteQuestion(final VerticalPanel verticalPanel) {
+		this.verticalPanel = verticalPanel;
+	}
+
 	public void onModuleLoad() {
 
-		RootPanel.get().clear();
+		this.verticalPanel.add(new HTML("<h1>Cancella</h1>"));
+		this.verticalPanel.add(new HTML("<br/>"));
 
-		this.verticalPanel = new VerticalPanel();
-		this.verticalPanel.add(new HTML("<h1>Domande</h1>"));
-		this.verticalPanel.add(new HTML("</br>"));
 		final CaffeineOverflowServiceAsync caffeineOverflow = GWT.create(CaffeineOverflowService.class);
 		caffeineOverflow.getQuestions(new AsyncCallback<List<Question>>() {
 
 			@Override
-			public void onFailure(Throwable caught) {
-				PopupPanel popup = new PopupPanel(true);
+			public void onFailure(final Throwable caught) {
+				final PopupPanel popup = new PopupPanel(true);
 				popup.setWidget(new HTML("<font color='red'>Error</font>"));
 				popup.center();
 			}
@@ -76,25 +75,49 @@ public class CaffeineOverflow implements EntryPoint {
 				final SingleSelectionModel<Question> questionSelectionModel = new SingleSelectionModel<>();
 				questionsTable.setSelectionModel(questionSelectionModel);
 
-				questionSelectionModel.addSelectionChangeHandler(event -> questionSelectionModel.addSelectionChangeHandler(event1 -> {
+				questionSelectionModel.addSelectionChangeHandler(event -> {
 					final Question selected = questionSelectionModel.getSelectedObject();
 					if (selected != null) {
-						CaffeineOverflow.this.verticalPanel.clear();
-						final ShowAnswers showAnswers = new ShowAnswers(CaffeineOverflow.this.verticalPanel);
-						showAnswers.onModuleLoad(selected);
+						final int id = selected.getIdQuestion();
+						try {
+							caffeineOverflow.removeQuestion(id, new AsyncCallback<Boolean>() {
+
+								@Override
+								public void onFailure(final Throwable caught) {
+									final PopupPanel popup = new PopupPanel(true);
+									popup.setWidget(new HTML("<font color='red'>Error</font>"));
+									popup.center();
+								}
+
+								@Override
+								public void onSuccess(final Boolean response) {
+									if (response) {
+										final PopupPanel popup = new PopupPanel(true);
+										popup.setWidget(new HTML("Success"));
+										popup.center();
+										DeleteQuestion.this.verticalPanel.clear();
+										final DeleteQuestion deleteQuestion = new DeleteQuestion(DeleteQuestion.this.verticalPanel);
+										deleteQuestion.onModuleLoad();
+									} else {
+										final PopupPanel popup = new PopupPanel(true);
+										popup.setWidget(new HTML("Error"));
+										popup.center();
+									}
+								}
+							});
+						} catch (final Exception e) {
+							final PopupPanel popup = new PopupPanel(true);
+							popup.setWidget(new HTML(e.toString()));
+							popup.center();
+						}
 					}
-				}));
+				});
 
 				questionsTable.setRowCount(response.size(), true);
 				questionsTable.setRowData(0, response);
-				CaffeineOverflow.this.verticalPanel.add(questionsTable);
+				DeleteQuestion.this.verticalPanel.add(questionsTable);
 
 			}
 		});
-		final Menu menu = new Menu(this.verticalPanel, 0);
-		menu.onModuleLoad();
-
-		RootPanel.get().add(this.verticalPanel);
 	}
-
 }
